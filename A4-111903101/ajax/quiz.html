@@ -1,0 +1,107 @@
+<html>
+<head>
+	<title>
+		Quiz
+	</title>
+	
+	 <link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+<form onsubmit = "return false;">
+<input type = "textbox" id="num1" value = "1"/>
+<input type = "button" onclick = "next();" value = "next"/>
+<input type = "button" onclick = "prev();" value = "prev"/>
+<h1 id = "qn"></h1>
+<label id = "aa" value = ""> </label>
+        <input type="radio" name="a" id = "a" value="">
+   <br><br>
+    <label id = "bb" value = ""> </label>
+        <input type="radio" name="b" id = "b" value="">
+   <br><br>
+    <label id = "cc" value = ""></label>
+        <input type="radio" name="c" id = "c" value="">
+    <br><br>
+    <label id = "dd" value = ""></label>
+        <input type="radio" name="d" id = "d" value="">
+    <br><br>
+    <input type="button" name="submit" value="Check" onclick = "prev();">
+</form>
+</body>
+
+
+<script>
+
+var count = 1;
+document.getElementById("qn").innerHTML = "Question" + count.toString() + ": ";
+jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+			
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			count = count + 1;
+		
+		}
+	})
+
+
+function next(){
+
+	var num1 = jQuery('#num1').val();
+	
+	document.getElementById("qn").innerHTML = "Question" + count.toString() + ": ";
+	jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+			
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			
+			count = count + 1;
+			}
+					
+	})
+}
+
+
+function prev(){
+
+	var num1 = jQuery('#num1').val();
+	
+	document.getElementById("qn").innerHTML = "Question" + count.toString() + ": ";
+	jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+		
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			count = count -1;
+		}
+	})
+}
+
+</script>
+
+
+</html>
